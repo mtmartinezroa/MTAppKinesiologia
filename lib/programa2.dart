@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 
-class PaginaInicio extends StatefulWidget {
+class Programa2 extends StatefulWidget {
   @override
   _HomeState createState() => _HomeState();
 }
 
-class _HomeState extends State<PaginaInicio> {
+class _HomeState extends State<Programa2> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey[200],
       appBar: AppBar( //Widget que contiene la barra superior de la app
-        title: const Text('Pagina Inicio'),
+        title: const Text('Programa 2'),
         centerTitle: true,
         backgroundColor: Colors.blue[500],
         elevation: 0.0,
@@ -21,16 +21,15 @@ class _HomeState extends State<PaginaInicio> {
           children: <Widget>[
             ElevatedButton.icon(
               onPressed: () {
-                Navigator.pushNamed(context, '/menuprogramas');
+                Navigator.pushNamed(context, '/editarprograma');
               },
               icon: const Icon(
                 size: 30.0,
-                Icons.assignment_outlined,
+                Icons.add,
                 color: Colors.red,
               ),
-              label: const Text('Menu Programas'),
+              label: const Text('Añadir Programa'),
             ),
-            Image.network("https://picsum.photos/id/237/200/300"),
           ],
         ),
       ),

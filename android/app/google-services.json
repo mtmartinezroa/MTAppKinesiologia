@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "783444933701",
+    "project_id": "mtapp-a45cd",
+    "storage_bucket": "mtapp-a45cd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:783444933701:android:d8a3de94c804606b56f72c",
+        "android_client_info": {
+          "package_name": "com.example.mt_app_kinesiologia"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "783444933701-971jv7ass1le1flfd0kv2d97r569tk3m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBN-_QssQSdHWpkXU2eEoTnVPKDsh-PWtk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "783444933701-971jv7ass1le1flfd0kv2d97r569tk3m.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "783444933701-p47miqao6hpgoesmvs4ciquou0b04mqr.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.mtAppKinesiologia"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
