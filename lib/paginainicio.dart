@@ -30,6 +30,17 @@ class _HomeState extends State<PaginaInicio> {
               ),
               label: const Text('Menu Programas'),
             ),
+            ElevatedButton.icon(
+              onPressed: () {
+                Navigator.pushNamed(context, '/listaprogramas');
+              },
+              icon: const Icon(
+                size: 30.0,
+                Icons.assignment_outlined,
+                color: Colors.red,
+              ),
+              label: const Text('Lista Programas'),
+            ),
             Image.network("https://picsum.photos/id/237/200/300"),
           ],
         ),
