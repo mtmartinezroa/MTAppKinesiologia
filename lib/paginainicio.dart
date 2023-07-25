@@ -16,20 +16,12 @@ class _HomeState extends State<PaginaInicio> {
         backgroundColor: Colors.blue[500],
         elevation: 0.0,
       ),
-      body: Center( //Widget que contiene la parte central de la app
+      body: Center(child: SingleChildScrollView( //Widget que contiene la parte central de la app
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
+
           children: <Widget>[
-            ElevatedButton.icon(
-              onPressed: () {
-                Navigator.pushNamed(context, '/menuprogramas');
-              },
-              icon: const Icon(
-                size: 30.0,
-                Icons.assignment_outlined,
-                color: Colors.red,
-              ),
-              label: const Text('Menu Programas'),
-            ),
             ElevatedButton.icon(
               onPressed: () {
                 Navigator.pushNamed(context, '/listaprogramas');
@@ -41,9 +33,32 @@ class _HomeState extends State<PaginaInicio> {
               ),
               label: const Text('Lista Programas'),
             ),
-            Image.network("https://picsum.photos/id/237/200/300"),
+            ElevatedButton.icon(
+              onPressed: () {
+                Navigator.pushNamed(context, '/ingresarcuentapaciente');
+              },
+              icon: const Icon(
+                size: 30.0,
+                Icons.assignment_outlined,
+                color: Colors.red,
+              ),
+              label: const Text('Ingresar Cuenta'),
+            ),
+            ElevatedButton.icon(
+              onPressed: () {
+                Navigator.pushNamed(context, '/listapacientes');
+              },
+              icon: const Icon(
+                size: 30.0,
+                Icons.assignment_outlined,
+                color: Colors.red,
+              ),
+              label: const Text('Lista Pacientes'),
+            ),
+            Image.asset('assets/imagenes/1.png'),
           ],
         ),
+      ),
       ),
     );
   }

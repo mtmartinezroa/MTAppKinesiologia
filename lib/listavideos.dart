@@ -1,14 +1,17 @@
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:provider/provider.dart';
-import 'dart:io';
-import 'clasesextra/programasData.dart';
-import 'verarchivo.dart';
-import 'firebase_file.dart';
+import 'vervideo.dart';
+import 'firebase/firebase_file.dart';
 
 class ListaVideos extends StatefulWidget {
+  final String idEjercicio;
+
+  const ListaVideos({
+    super.key,
+    required this.idEjercicio,
+
+  });
+
   @override
   _HomeState createState() => _HomeState();
 }
@@ -17,8 +20,8 @@ class _HomeState extends State<ListaVideos> {
   static Future<List<String>> _getDownloadLinks(List<Reference> refs) =>
       Future.wait(refs.map((ref) => ref.getDownloadURL()).toList());
 
-  static Future<List<FirebaseFile>> listAll(String path) async { //funcion que crea una lista de los archivos de la bd
-    final ref = FirebaseStorage.instance.ref().child("archivos/");
+  Future<List<FirebaseFile>> listAll(String path) async { //funcion que crea una lista de los archivos de la bd
+    final ref = FirebaseStorage.instance.ref().child("archivos/"+widget.idEjercicio+"/");
     final result = await ref.listAll();
     final urls = await _getDownloadLinks(result.items);
     return urls
@@ -58,7 +61,7 @@ class _HomeState extends State<ListaVideos> {
             onTap: () {
               Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) =>  VerArchivo(file: file),
+                  MaterialPageRoute(builder: (context) =>  VerVideo(file: file),
                   )
               );
             }
@@ -71,13 +74,12 @@ class _HomeState extends State<ListaVideos> {
   @override
   void initState(){
     super.initState();
-    futureFiles = listAll('archivos/');
+    futureFiles = listAll('archivos/'+widget.idEjercicio+'/');
   }
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<programasData>(
-      builder: (context, value, child) => Scaffold(
+    return Scaffold(
         backgroundColor: Colors.grey[200],
         appBar: AppBar( //Widget que contiene la barra superior de la app
           title: Text('Lista Videos'),
@@ -115,7 +117,6 @@ class _HomeState extends State<ListaVideos> {
               }
             }
         ),
-      ),
     );
   }
 

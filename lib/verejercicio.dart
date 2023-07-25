@@ -1,40 +1,47 @@
 import 'package:flutter/material.dart';
 import 'package:mt_app_kinesiologia/realizarejercicio.dart';
-import 'package:provider/provider.dart';
-import 'package:mt_app_kinesiologia/clasesextra/programasData.dart';
-import 'agregarvideos.dart';
+import 'clasesSuperUsuario/agregarvideos.dart';
 import 'listavideos.dart';
 
 
-class PaginaEjercicio extends StatefulWidget {
+
+class VerEjercicio extends StatefulWidget {
+  final String idPaciente;
+  final String idPrograma;
+  final String idEjercicio;
   final String nombreEjercicio;
-  final String nombrePrograma;
-  final String nRepeticiones;
-  final String nTiempo;
-  final String nSets;
-  final String descripcion;
   final String categoria;
-  const PaginaEjercicio({
+  final String subcategoria;
+  final String repeticiones;
+  final String sets;
+  final String tiempo;
+  final String descripcion;
+
+  const VerEjercicio({
     super.key,
+    required this.idPaciente,
+    required this.idPrograma,
+    required this.idEjercicio,
     required this.nombreEjercicio,
-    required this.nombrePrograma,
-    required this.nRepeticiones,
-    required this.nTiempo,
-    required this.nSets,
-    required this.descripcion,
-    required this.categoria
+    required this.categoria,
+    required this.subcategoria,
+    required this.repeticiones,
+    required this.sets,
+    required this.tiempo,
+    required this.descripcion
+
   });
 
   @override
   _HomeState createState() => _HomeState();
 }
 
-class _HomeState extends State<PaginaEjercicio> {
+class _HomeState extends State<VerEjercicio> {
+
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<programasData>(
-      builder: (context, value, child) => Scaffold(
+    return Scaffold(
         backgroundColor: Colors.grey[200],
         appBar: AppBar( //Widget que contiene la barra superior de la app
           title: Text(widget.nombreEjercicio),
@@ -46,19 +53,23 @@ class _HomeState extends State<PaginaEjercicio> {
           children: [
             ListTile(
               leading: Icon(Icons.edit_note),
-              title: Text("Categoria :" + widget.categoria),
+              title: Text("Categoria : " + widget.categoria),
+            ),
+            ListTile(
+              leading: Icon(Icons.subject_rounded),
+              title: Text("Subcategoria : " + widget.subcategoria),
             ),
             ListTile(
               leading: Icon(Icons.repeat),
-              title: Text(widget.nRepeticiones + " repeticiones"),
+              title: Text(widget.repeticiones + " repeticiones"),
             ),
             ListTile(
               leading: Icon(Icons.timer_sharp),
-              title: Text(widget.nTiempo + " segundos"),
+              title: Text(widget.tiempo + " segundos"),
             ),
             ListTile(
               leading: Icon(Icons.checklist),
-              title: Text(widget.nSets + " sets"),
+              title: Text(widget.sets + " series"),
             ),
             ListTile(
               leading: Icon(Icons.description_outlined),
@@ -67,7 +78,7 @@ class _HomeState extends State<PaginaEjercicio> {
             ElevatedButton.icon(
               onPressed: () {
                 Navigator.push(context, MaterialPageRoute(builder: (context) =>
-                AgregarVideos(),));
+                    AgregarVideos(idEjercicio: widget.idEjercicio,),));
               },
               icon: const Icon(
                 size: 30.0,
@@ -79,7 +90,7 @@ class _HomeState extends State<PaginaEjercicio> {
             ElevatedButton.icon(
               onPressed: () {
                 Navigator.push(context, MaterialPageRoute(builder: (context) =>
-                    ListaVideos(),));
+                    ListaVideos(idEjercicio: widget.idEjercicio,),));
               },
               icon: const Icon(
                 size: 30.0,
@@ -92,9 +103,10 @@ class _HomeState extends State<PaginaEjercicio> {
               onPressed: () {
                 Navigator.push(context, MaterialPageRoute(builder: (context) =>
                     RealizarEjercicio(
-                      nTiempo: widget.nTiempo,
-                      nRepeticiones: widget.nRepeticiones,
-                      nSets: widget.nSets,
+                      nombreEjercicio: widget.nombreEjercicio,
+                      nTiempo: widget.tiempo,
+                      nRepeticiones: widget.repeticiones,
+                      nSets: widget.sets,
                     ),));
               },
               icon: const Icon(
@@ -106,8 +118,6 @@ class _HomeState extends State<PaginaEjercicio> {
             ),
           ],
         )
-
-      ),
     );
   }
 }

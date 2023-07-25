@@ -1,18 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_storage/firebase_storage.dart';
-import 'package:provider/provider.dart';
-import 'firebase_options.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'firebase/firebase_options.dart';
 import '/paginainicio.dart';
-import '/menuprogramas.dart';
-import '/verarchivo.dart';
-import '/programa.dart';
-import '/programa2.dart';
-import '/programa3.dart';
-import '/verprograma.dart';
-import '/listaprogramas.dart';
-import '/paginaprograma.dart';
-import 'package:mt_app_kinesiologia/clasesextra/programasData.dart';
+import 'clasesSuperUsuario/crearcuentapaciente.dart';
+import '/ingresarcuentapaciente.dart';
+import 'clasesSuperUsuario/listapacientes.dart';
 
 
 Future main() async {
@@ -20,6 +13,8 @@ Future main() async {
   await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform,
   );
+  await FirebaseAuth.instance.signInAnonymously();
+
   runApp(const MyApp());
 }
 
@@ -28,22 +23,15 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-        create: (context) => programasData(),
-        child: MaterialApp(
+    return MaterialApp(
           initialRoute: '/paginainicio',
           routes: {
             '/paginainicio': (context) => PaginaInicio(),
-            '/menuprogramas': (context) => MenuProgramas(),
-            '/listaprogramas': (context) => ListaProgramas(),
-            //'/paginaprograma': (context) => PaginaPrograma(),
-            '/programa': (context) => Programa(),
-            '/programa2': (context) => Programa2(),
-            '/programa3': (context) => Programa3(),
-            '/verprograma': (context) => VerPrograma(),
+            '/listapacientes': (context) => ListaPacientes(),
+            '/ingresarcuentapaciente': (context) => IngresarcuentaPaciente(),
+            '/crearcuentapaciente': (context) => CrearcuentaPaciente(),
           }
-        ),
-    );
+        );
   }
 }
 

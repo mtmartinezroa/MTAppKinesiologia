@@ -1,14 +1,22 @@
-import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/material.dart';
 import 'dart:io';
 
-class Programa extends StatefulWidget {
+class AgregarVideos extends StatefulWidget {
+  final String idEjercicio;
+
+  const AgregarVideos({
+    super.key,
+    required this.idEjercicio,
+
+  });
+
   @override
   _HomeState createState() => _HomeState();
 }
 
-class _HomeState extends State<Programa> {
+class _HomeState extends State<AgregarVideos> {
   PlatformFile? pickedFile;
   UploadTask? uploadTask;
 
@@ -22,7 +30,7 @@ class _HomeState extends State<Programa> {
 
   Future subirVideo() async {  // funcion que sube el archivo a la bd
     if(pickedFile == null) return;
-    final path = 'archivos/${pickedFile!.name}';
+    final path = 'archivos/'+widget.idEjercicio+'/${pickedFile!.name}';
     final file = File(pickedFile!.path!);
     final ref = FirebaseStorage.instance.ref().child(path);
 
@@ -45,23 +53,23 @@ class _HomeState extends State<Programa> {
           final data = snapshot.data!;
           double progress = data.bytesTransferred / data.totalBytes;
           return SizedBox(
-            height: 50,
-            child: Stack(
-              fit: StackFit.expand,
-              children: [
-                LinearProgressIndicator(
-                  value: progress,
-                  backgroundColor: Colors.grey,
-                  color: Colors.green,
-                ),
-                Center(
-                  child: Text(
-                    '${(100 * progress).roundToDouble()}%',
-                    style: const TextStyle(color: Colors.white),
-                  )
-                ),
-              ],
-            )
+              height: 50,
+              child: Stack(
+                fit: StackFit.expand,
+                children: [
+                  LinearProgressIndicator(
+                    value: progress,
+                    backgroundColor: Colors.grey,
+                    color: Colors.green,
+                  ),
+                  Center(
+                      child: Text(
+                        '${(100 * progress).roundToDouble()}%',
+                        style: const TextStyle(color: Colors.white),
+                      )
+                  ),
+                ],
+              )
           );
 
         } else {
@@ -71,13 +79,13 @@ class _HomeState extends State<Programa> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[200],
-      appBar: AppBar( //Widget que contiene la barra superior de la app
-        title: const Text('Editando Programa 1'),
-        centerTitle: true,
-        backgroundColor: Colors.blue[500],
-        elevation: 0.0,
-      ),
+        backgroundColor: Colors.grey[200],
+        appBar: AppBar( //Widget que contiene la barra superior de la app
+          title: Text('Agregar Videos'),
+          centerTitle: true,
+          backgroundColor: Colors.blue[500],
+          elevation: 0.0,
+        ),
       body: Center( //Widget que contiene la parte central de la app
         child: Column(
           children: [
@@ -95,9 +103,9 @@ class _HomeState extends State<Programa> {
             SizedBox(height: 5),
 
             if (pickedFile == null)
-            Text(
-              'No se ha seleccionado un archivo aun'
-            ),
+              Text(
+                  'No se ha seleccionado un archivo aun'
+              ),
             if (pickedFile != null)
               Text(
                   pickedFile!.name
@@ -121,3 +129,6 @@ class _HomeState extends State<Programa> {
     );
   }
 }
+
+
+

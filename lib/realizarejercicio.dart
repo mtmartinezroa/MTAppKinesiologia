@@ -1,17 +1,16 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:mt_app_kinesiologia/clasesextra/programasData.dart';
-
+import 'package:audioplayers/audioplayers.dart';
 
 
 class RealizarEjercicio extends StatefulWidget {
+  final String nombreEjercicio;
   final String nTiempo;
   final String nRepeticiones;
   final String nSets;
   const RealizarEjercicio({
     super.key,
+    required this.nombreEjercicio,
     required this.nTiempo,
     required this.nRepeticiones,
     required this.nSets,
@@ -28,19 +27,20 @@ int maxSegundos = 1;
 int segundos = 1;
 int sets = 1;
 Timer? timer;
-
+bool desactivarBoton = false; // para ver si el boton se presiono o no
+final AudioPlayer player= AudioPlayer();
 
 void avisoTermino(){
   showDialog(
     context: context,
     builder: (context) => AlertDialog(
-      title: Text('Set Completado'),
+      title: Text('Serie Completada'),
       content: SingleChildScrollView(
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
-              'Felicidades haz completado las repeticiones de este set!'
+              'Felicidades haz completado las repeticiones de esta serie!'
             ),
           ],
         ),
@@ -54,7 +54,7 @@ void avisoTermino(){
     ),
   );
 }
-void avisoTerminoSets(){
+void avisoTerminoEjercicio(){
   showDialog(
     context: context,
     builder: (context) => AlertDialog(
@@ -64,7 +64,7 @@ void avisoTerminoSets(){
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
-                'Felicidades haz completado todos los sets!'
+                'Felicidades haz completado todas las series!'
             ),
           ],
         ),
@@ -114,31 +114,43 @@ Widget contadorTiempo(){
 }
 
 void comenzarContador(){
-  if (segundos == 0) {
-    reiniciarTiempo();
-  }
+  setState(() {
+    desactivarBoton = true;
+  });
+
+
   timer = Timer.periodic(Duration(seconds: 1), (_){
     if(segundos>0) {
       setState(() => segundos--);
     } else {
       detenerTiempo();
+      reiniciarTiempo();
+      player.play(AssetSource('sonidos/mixkit-achievement-bell-600.wav'));
       setState(() {
         verificador++;
+        desactivarBoton = false;
       });
 
-      if (verificador == int.parse(widget.nRepeticiones)&&verificadorSets == int.parse(widget.nSets)) {
-        avisoTerminoSets();
-      } else {
-        if(verificador == int.parse(widget.nRepeticiones)) {
 
-          avisoTermino();
-          setState(() {
-            verificador = 0;
-            reiniciarTiempo();
-            verificadorSets++;
-          });
+        if(verificador == int.parse(widget.nRepeticiones)) {
+          verificadorSets++;
+          if(verificadorSets == int.parse(widget.nSets)){
+
+            avisoTerminoEjercicio();
+
+            desactivarBoton = true;
+          } else {
+
+            avisoTermino();
+            setState(() {
+              verificador = 0;
+              desactivarBoton = false;
+
+              reiniciarTiempo();
+            });
+          }
         }
-      }
+
     }
   });
 }
@@ -168,11 +180,10 @@ void initState() {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<programasData>(
-      builder: (context, value, child) => Scaffold(
+    return Scaffold(
           backgroundColor: Colors.grey[200],
           appBar: AppBar( //Widget que contiene la barra superior de la app
-            title: Text('Realizar Ejercicio'),
+            title: Text('Realizar Ejercicio '+ widget.nombreEjercicio),
             centerTitle: true,
             backgroundColor: Colors.blue[500],
             elevation: 0.0,
@@ -186,12 +197,21 @@ void initState() {
               ),
               ListTile(
                 leading: Icon(Icons.settings_accessibility_sharp),
-                title: Text("Set numero : "+verificadorSets.toString()+ " de " + widget.nSets),
+                title: Text("Serie numero : "+verificadorSets.toString()+ " de " + widget.nSets),
               ),
               contadorCircular(),
+
+              SizedBox(
+                height: 20,
+              ),
+
+              SizedBox(
+                width: 100.0,
+                height: 100.0,
+              child:
               ElevatedButton.icon(
                 onPressed: () {
-                  comenzarContador();
+                  desactivarBoton ? null : comenzarContador();
                 },
                 icon: const Icon(
                   size: 30.0,
@@ -199,27 +219,13 @@ void initState() {
                   color: Colors.red,
                 ),
                 label: const Text('Iniciar Contador'),
-              ),
-              ElevatedButton.icon(
-                onPressed: () {
-                  reiniciarEjercicio();
-                },
-                icon: const Icon(
-                  size: 30.0,
-                  Icons.add,
-                  color: Colors.red,
+                style: ElevatedButton.styleFrom(
+                    textStyle: const TextStyle(fontSize: 25)
                 ),
-                label: const Text('Reiniciar Ejercicio'),
               ),
-              ]
+              ),
+            ]
           ),
-
-
-
-
-      ),
-
-
     );
   }
 }
