@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:mt_app_kinesiologia/clasesSuperUsuario/ingresarcuentakine.dart';
+import 'clasesSuperUsuario/crearcuentakine.dart';
 import 'firebase/firebase_options.dart';
 import '/paginainicio.dart';
 import 'clasesSuperUsuario/crearcuentapaciente.dart';
@@ -27,9 +29,9 @@ class MyApp extends StatelessWidget {
           initialRoute: '/paginainicio',
           routes: {
             '/paginainicio': (context) => PaginaInicio(),
-            '/listapacientes': (context) => ListaPacientes(),
             '/ingresarcuentapaciente': (context) => IngresarcuentaPaciente(),
-            '/crearcuentapaciente': (context) => CrearcuentaPaciente(),
+            '/crearcuentakine': (context) => CrearcuentaKine(),
+            '/ingresarcuentakine': (context) => IngresarcuentaKine(),
           }
         );
   }

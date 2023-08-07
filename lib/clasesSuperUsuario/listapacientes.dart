@@ -1,11 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:mt_app_kinesiologia/clasesSuperUsuario/crearcuentapaciente.dart';
 import 'package:mt_app_kinesiologia/listaprogramaspaciente.dart';
 
 class ListaPacientes extends StatefulWidget {
-  ListaPacientes({Key? key}) : super(key: key) {
-
-  }
+  final String idk;
+  const ListaPacientes({
+    super.key,
+    required this.idk,
+  });
 
 
   @override
@@ -14,8 +17,7 @@ class ListaPacientes extends StatefulWidget {
 
 class _HomeState extends State<ListaPacientes> {
 
-  CollectionReference _reference =
-  FirebaseFirestore.instance.collection('lista_pacientes');
+  late var _reference;
   late Stream<QuerySnapshot> _stream;
 
   void IrPaginaPrograma(String id){// funcion para acceder a la pagina del programa
@@ -27,7 +29,14 @@ class _HomeState extends State<ListaPacientes> {
   @override
   void initState(){
     super.initState();
-    _stream = _reference.orderBy('posteado',descending: false).snapshots();
+
+    _reference = FirebaseFirestore.instance.collection('lista_pacientes').where("uid", isEqualTo: widget.idk);
+
+    _stream = _reference.snapshots();
+
+
+
+
   }
 
   @override
@@ -42,7 +51,10 @@ class _HomeState extends State<ListaPacientes> {
         ),
         floatingActionButton: FloatingActionButton.extended(
           onPressed: () {
-            Navigator.pushNamed(context, '/crearcuentapaciente');
+            Navigator.push(context, MaterialPageRoute(builder: (context) =>
+                CrearcuentaPaciente(
+                  idk: widget.idk,
+                ),));
           },
           icon: Icon(
             size: 30.0,

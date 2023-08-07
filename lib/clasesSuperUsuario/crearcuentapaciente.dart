@@ -8,6 +8,13 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 
 class CrearcuentaPaciente extends StatefulWidget {
+  final String idk;
+  const CrearcuentaPaciente({
+    super.key,
+    required this.idk,
+  });
+
+
   @override
   _HomeState createState() => _HomeState();
 }
@@ -15,7 +22,6 @@ class CrearcuentaPaciente extends StatefulWidget {
 class _HomeState extends State<CrearcuentaPaciente> {
   String password = '123456';
   bool bandera = false;
-  late String? idPaciente;
 
   late FirebaseAuth userAuth = FirebaseAuth.instance;
 
@@ -126,10 +132,10 @@ class _HomeState extends State<CrearcuentaPaciente> {
                           Map<String, dynamic> DatosPaciente = {
                             'nombre': nombrePaciente,
                             'correo': correoPaciente,
-                            'uid': userAuth.currentUser?.uid,
+                            'uid': widget.idk,
                             'posteado': FieldValue.serverTimestamp()
                           };
-                          idPaciente = userAuth.currentUser?.uid;
+
                           CollectionReference baseDatos = FirebaseFirestore.instance.collection('lista_pacientes');
                           baseDatos.add(DatosPaciente);
 

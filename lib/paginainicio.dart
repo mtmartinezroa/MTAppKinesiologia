@@ -24,36 +24,25 @@ class _HomeState extends State<PaginaInicio> {
           children: <Widget>[
             ElevatedButton.icon(
               onPressed: () {
-                Navigator.pushNamed(context, '/listaprogramas');
+                Navigator.pushNamed(context, '/ingresarcuentakine');
               },
               icon: const Icon(
                 size: 30.0,
                 Icons.assignment_outlined,
                 color: Colors.red,
               ),
-              label: const Text('Lista Programas'),
+              label: const Text('Ingresar Cuenta Kinesiologo'),
             ),
             ElevatedButton.icon(
               onPressed: () {
-                Navigator.pushNamed(context, '/ingresarcuentapaciente');
+                Navigator.pushNamed(context, '/crearcuentakine');
               },
               icon: const Icon(
                 size: 30.0,
                 Icons.assignment_outlined,
                 color: Colors.red,
               ),
-              label: const Text('Ingresar Cuenta'),
-            ),
-            ElevatedButton.icon(
-              onPressed: () {
-                Navigator.pushNamed(context, '/listapacientes');
-              },
-              icon: const Icon(
-                size: 30.0,
-                Icons.assignment_outlined,
-                color: Colors.red,
-              ),
-              label: const Text('Lista Pacientes'),
+              label: const Text('Crear Cuenta Kinesiologo'),
             ),
             Image.asset('assets/imagenes/1.png'),
           ],

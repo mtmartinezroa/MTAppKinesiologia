@@ -8,6 +8,7 @@ import 'clasesSuperUsuario/crearejercicio.dart';
 class ListaEjercicios extends StatefulWidget {
   final String idPaciente;
   final String idPrograma;
+
   const ListaEjercicios({
     super.key,
     required this.idPaciente,
@@ -19,11 +20,16 @@ class ListaEjercicios extends StatefulWidget {
 }
 
 class _HomeState extends State<ListaEjercicios> {
+  late String idBorrarEjercicio;
+  late DocumentReference borrarEjer;
 
   late DocumentReference _referencePaciente;
   late DocumentReference _referencePrograma;
   late CollectionReference _referenceEjercicio;
   late Stream<QuerySnapshot> _streamEjercicio;
+
+
+
 
   @override
   void initState(){
@@ -102,6 +108,47 @@ class _HomeState extends State<ListaEjercicios> {
     );
   }
 
+ void borrarEjercicio(String idEjercicioABorrar)async{
+    showDialog(
+      context: context,
+      builder: (context) =>
+          AlertDialog(
+            title: Text('Borrar Ejercicio'),
+            content: SingleChildScrollView(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                      '¿Esta seguro que desea borrar el ejercicio?'
+                  ),
+                ],
+              ),
+            ),
+            actions: [
+              MaterialButton(
+                onPressed: () => aceptarE(idEjercicioABorrar),
+                child: Text("ACEPTAR"),
+              ),
+
+              MaterialButton(
+                onPressed: cancelar,
+                child: Text("CANCELAR"),
+              ),
+            ],
+          ),
+    );
+  }
+
+  void aceptarE(String idEjercicioABorrar1)async{
+    borrarEjer = _referencePrograma.collection('ejercicios').doc(idEjercicioABorrar1);
+    borrarEjer.delete();
+    Navigator.pop(context);
+  }
+
+
+
+
+
   void cancelar(){
     Navigator.pop(context);
   }
@@ -171,6 +218,14 @@ class _HomeState extends State<ListaEjercicios> {
                       Map datoss = datos[index];
                       return Card(
                           child: ListTile(
+                              leading: IconButton(
+                                icon: Icon(Icons.delete_forever),
+                                onPressed: () {
+                                  idBorrarEjercicio = datoss['id'].toString();
+                                  borrarEjercicio(idBorrarEjercicio);
+                                },),
+
+
                               title: Text('${datoss['nombre']}'),
                               contentPadding: const EdgeInsets.all(20),
                               trailing: IconButton(
