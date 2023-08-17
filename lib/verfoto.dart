@@ -14,6 +14,11 @@ class VerFoto extends StatefulWidget {
 
 class _HomeState extends State<VerFoto> {
 
+  final ScrollController controller = ScrollController();
+  final ScrollController controller2 = ScrollController();
+
+
+
   @override
   void initState() {
     super.initState();
@@ -33,14 +38,15 @@ class _HomeState extends State<VerFoto> {
           backgroundColor: Colors.blue[500],
           elevation: 0.0,
         ),
-      body: Center(child: SingleChildScrollView( //Widget que contiene la parte central de la app
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.center,
-
-          children: <Widget>[
-            Image.network(widget.file.url),
-          ],
+      body: Center(child: Scrollbar( //Widget que contiene la parte central de la app
+        controller: controller2,
+        child: SingleChildScrollView(
+          controller: controller2,
+          scrollDirection: Axis.horizontal,
+            child: SingleChildScrollView(
+             controller: controller,
+           child: Image.network(widget.file.url),
+            )
         ),
       ),
       ),

@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -17,25 +19,28 @@ class AgregarVideos extends StatefulWidget {
 }
 
 class _HomeState extends State<AgregarVideos> {
-  PlatformFile? pickedFile;
+  //PlatformFile? pickedFile;
+  Uint8List? pickedFile;
+  String? nombreFile;
   UploadTask? uploadTask;
+
 
   Future elegirVideo() async { // funcion que elige el archivo que queremos subir a la bd
     final result = await FilePicker.platform.pickFiles();
     if (result == null) return;
     setState(() {
-      pickedFile = result.files.first;
+      pickedFile = result.files.first.bytes;
+      nombreFile = result.files.first.name;
     });
   }
 
   Future subirVideo() async {  // funcion que sube el archivo a la bd
     if(pickedFile == null) return;
-    final path = 'archivos/videos/'+widget.idEjercicio+'/${pickedFile!.name}';
-    final file = File(pickedFile!.path!);
+    final path = 'archivos/videos/'+widget.idEjercicio+'/${nombreFile}';
     final ref = FirebaseStorage.instance.ref().child(path);
 
     setState(() {
-      uploadTask = ref.putFile(file);
+      uploadTask = ref.putData(pickedFile!);
     });
     final snapshot = await uploadTask!.whenComplete(() {});
     final linkVideo = await snapshot.ref.getDownloadURL();
@@ -112,7 +117,7 @@ class _HomeState extends State<AgregarVideos> {
               ),
             if (pickedFile != null)
               Text(
-                  pickedFile!.name
+                  nombreFile!,
               ),
             SizedBox(height: 8),
             ElevatedButton.icon( //boton para subir video
