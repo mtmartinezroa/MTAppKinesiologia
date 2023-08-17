@@ -30,7 +30,7 @@ class _HomeState extends State<AgregarVideos> {
 
   Future subirVideo() async {  // funcion que sube el archivo a la bd
     if(pickedFile == null) return;
-    final path = 'archivos/'+widget.idEjercicio+'/${pickedFile!.name}';
+    final path = 'archivos/videos/'+widget.idEjercicio+'/${pickedFile!.name}';
     final file = File(pickedFile!.path!);
     final ref = FirebaseStorage.instance.ref().child(path);
 
@@ -81,7 +81,11 @@ class _HomeState extends State<AgregarVideos> {
     return Scaffold(
         backgroundColor: Colors.grey[200],
         appBar: AppBar( //Widget que contiene la barra superior de la app
-          title: Text('Agregar Videos'),
+          title: Text('Agregar Videos',
+              style: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+              )),
           centerTitle: true,
           backgroundColor: Colors.blue[500],
           elevation: 0.0,

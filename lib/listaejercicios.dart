@@ -168,7 +168,11 @@ class _HomeState extends State<ListaEjercicios> {
     return Scaffold(
         backgroundColor: Colors.grey[200],
         appBar: AppBar( //Widget que contiene la barra superior de la app
-          title: Text('Lista de ejercicios'),
+          title: Text('Lista de Ejercicios',
+              style: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+              )),
           centerTitle: true,
           backgroundColor: Colors.blue[500],
           elevation: 0.0,

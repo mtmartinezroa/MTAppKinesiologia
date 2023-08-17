@@ -81,7 +81,11 @@ class _HomeState extends State<ListaprogramasPaciente> {
     return Scaffold(
         backgroundColor: Colors.grey[200],
         appBar: AppBar( //Widget que contiene la barra superior de la app
-          title: Text('Lista de programas'),
+          title: Text('Lista de Programas',
+              style: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+              )),
           centerTitle: true,
           backgroundColor: Colors.blue[500],
           elevation: 0.0,

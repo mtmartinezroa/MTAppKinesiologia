@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:mt_app_kinesiologia/listafotos.dart';
 import 'package:mt_app_kinesiologia/realizarejercicio.dart';
+import 'clasesSuperUsuario/agregarfotos.dart';
 import 'clasesSuperUsuario/agregarvideos.dart';
 import 'listavideos.dart';
 
@@ -44,7 +46,11 @@ class _HomeState extends State<VerEjercicio> {
     return Scaffold(
         backgroundColor: Colors.grey[200],
         appBar: AppBar( //Widget que contiene la barra superior de la app
-          title: Text(widget.nombreEjercicio),
+          title: Text(widget.nombreEjercicio,
+              style: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+              )),
           centerTitle: true,
           backgroundColor: Colors.blue[500],
           elevation: 0.0,
@@ -90,6 +96,18 @@ class _HomeState extends State<VerEjercicio> {
             ElevatedButton.icon(
               onPressed: () {
                 Navigator.push(context, MaterialPageRoute(builder: (context) =>
+                    AgregarFotos(idEjercicio: widget.idEjercicio,),));
+              },
+              icon: const Icon(
+                size: 30.0,
+                Icons.add,
+                color: Colors.red,
+              ),
+              label: const Text('Agregar Fotos'),
+            ),
+            ElevatedButton.icon(
+              onPressed: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) =>
                     ListaVideos(idEjercicio: widget.idEjercicio,),));
               },
               icon: const Icon(
@@ -98,6 +116,18 @@ class _HomeState extends State<VerEjercicio> {
                 color: Colors.red,
               ),
               label: const Text('Lista de Videos'),
+            ),
+            ElevatedButton.icon(
+              onPressed: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) =>
+                    ListaFotos(idEjercicio: widget.idEjercicio,),));
+              },
+              icon: const Icon(
+                size: 30.0,
+                Icons.add,
+                color: Colors.red,
+              ),
+              label: const Text('Lista de Fotos'),
             ),
             ElevatedButton.icon(
               onPressed: () {

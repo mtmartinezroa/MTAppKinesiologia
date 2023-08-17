@@ -21,7 +21,7 @@ class _HomeState extends State<ListaVideos> {
       Future.wait(refs.map((ref) => ref.getDownloadURL()).toList());
 
   Future<List<FirebaseFile>> listAll(String path) async { //funcion que crea una lista de los archivos de la bd
-    final ref = FirebaseStorage.instance.ref().child("archivos/"+widget.idEjercicio+"/");
+    final ref = FirebaseStorage.instance.ref().child("archivos/videos/"+widget.idEjercicio+"/");
     final result = await ref.listAll();
     final urls = await _getDownloadLinks(result.items);
     return urls
@@ -74,7 +74,7 @@ class _HomeState extends State<ListaVideos> {
   @override
   void initState(){
     super.initState();
-    futureFiles = listAll('archivos/'+widget.idEjercicio+'/');
+    futureFiles = listAll('archivos/videos/'+widget.idEjercicio+'/');
   }
 
   @override
@@ -82,7 +82,11 @@ class _HomeState extends State<ListaVideos> {
     return Scaffold(
         backgroundColor: Colors.grey[200],
         appBar: AppBar( //Widget que contiene la barra superior de la app
-          title: Text('Lista Videos'),
+          title: Text('Lista Videos',
+              style: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+              )),
           centerTitle: true,
           backgroundColor: Colors.blue[500],
           elevation: 0.0,

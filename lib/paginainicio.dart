@@ -11,7 +11,11 @@ class _HomeState extends State<PaginaInicio> {
     return Scaffold(
       backgroundColor: Colors.grey[200],
       appBar: AppBar( //Widget que contiene la barra superior de la app
-        title: const Text('Pagina Inicio'),
+        title: Text('Pagina Inicio',
+            style: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+            )),
         centerTitle: true,
         backgroundColor: Colors.blue[500],
         elevation: 0.0,
@@ -33,17 +37,17 @@ class _HomeState extends State<PaginaInicio> {
               ),
               label: const Text('Ingresar Cuenta Kinesiologo'),
             ),
-            ElevatedButton.icon(
-              onPressed: () {
-                Navigator.pushNamed(context, '/crearcuentakine');
-              },
-              icon: const Icon(
-                size: 30.0,
-                Icons.assignment_outlined,
-                color: Colors.red,
-              ),
-              label: const Text('Crear Cuenta Kinesiologo'),
-            ),
+            //ElevatedButton.icon(
+            //  onPressed: () {
+            //    Navigator.pushNamed(context, '/crearcuentakine');
+            //  },
+            //  icon: const Icon(
+            //    size: 30.0,
+            //    Icons.assignment_outlined,
+            //    color: Colors.red,
+            //  ),
+            //  label: const Text('Crear Cuenta Kinesiologo'),
+            //),
             Image.asset('assets/imagenes/1.png'),
           ],
         ),

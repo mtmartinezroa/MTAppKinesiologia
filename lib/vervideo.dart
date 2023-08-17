@@ -47,7 +47,11 @@ class _HomeState extends State<VerVideo> {
     return Scaffold(
       backgroundColor: Colors.grey[200],
       appBar: AppBar( //Widget que contiene la barra superior de la app
-        title: Text(widget.file.name),
+        title: Text(widget.file.name,
+            style: TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+            )),
         centerTitle: true,
         backgroundColor: Colors.blue[500],
         elevation: 0.0,

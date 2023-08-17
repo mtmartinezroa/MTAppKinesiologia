@@ -183,7 +183,11 @@ void initState() {
     return Scaffold(
           backgroundColor: Colors.grey[200],
           appBar: AppBar( //Widget que contiene la barra superior de la app
-            title: Text('Realizar Ejercicio '+ widget.nombreEjercicio),
+            title: Text('Realizar Ejercicio '+ widget.nombreEjercicio,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                )),
             centerTitle: true,
             backgroundColor: Colors.blue[500],
             elevation: 0.0,
