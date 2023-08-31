@@ -37,17 +37,17 @@ class _HomeState extends State<PaginaInicio> {
               ),
               label: const Text('Ingresar Cuenta Kinesiologo'),
             ),
-            //ElevatedButton.icon(
-            //  onPressed: () {
-            //    Navigator.pushNamed(context, '/crearcuentakine');
-            //  },
-            //  icon: const Icon(
-            //    size: 30.0,
-            //    Icons.assignment_outlined,
-            //    color: Colors.red,
-            //  ),
-            //  label: const Text('Crear Cuenta Kinesiologo'),
-            //),
+            ElevatedButton.icon(
+              onPressed: () {
+                Navigator.pushNamed(context, '/crearcuentakine');
+              },
+              icon: const Icon(
+                size: 30.0,
+                Icons.assignment_outlined,
+                color: Colors.red,
+              ),
+              label: const Text('Crear Cuenta Kinesiologo'),
+            ),
             Image.asset('assets/imagenes/1.png'),
           ],
         ),

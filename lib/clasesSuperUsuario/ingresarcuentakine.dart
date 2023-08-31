@@ -1,3 +1,4 @@
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -23,6 +24,8 @@ class _HomeState extends State<IngresarcuentaKine> {
 
   Future ingresarCuenta(String correoKinesiologo, String passwordKinesiologo)async{
 
+
+
     try {
       await userAuth.signInWithEmailAndPassword(email: correoKinesiologo, password: passwordKinesiologo);
 
@@ -31,6 +34,9 @@ class _HomeState extends State<IngresarcuentaKine> {
     } catch (error) {
 
     }
+
+
+
   }
 
   Future irListaPacientes()async{

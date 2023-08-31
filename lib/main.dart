@@ -36,7 +36,7 @@ class MyApp extends StatelessWidget {
           routes: {
             '/paginainicio': (context) => PaginaInicio(),
             //'/ingresarcuentapaciente': (context) => IngresarcuentaPaciente(),
-            //'/crearcuentakine': (context) => CrearcuentaKine(),
+            '/crearcuentakine': (context) => CrearcuentaKine(),
             '/ingresarcuentakine': (context) => IngresarcuentaKine(),
           }
         );

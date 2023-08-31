@@ -127,13 +127,16 @@ class _HomeState extends State<CrearcuentaPaciente> {
                       if (formKey.currentState!.validate()) {
                         String nombrePaciente = nPaciente.text;
                         String correoPaciente = ePaciente.text;
+                        String esPaciente = 'si';
                         await crearCuenta(correoPaciente, password);
                         if (bandera == true) {
                           Map<String, dynamic> DatosPaciente = {
                             'nombre': nombrePaciente,
                             'correo': correoPaciente,
+                            'esPaciente': esPaciente,
                             'uid': widget.idk,
-                            'posteado': FieldValue.serverTimestamp()
+                            'posteado': FieldValue.serverTimestamp(),
+
                           };
 
                           CollectionReference baseDatos = FirebaseFirestore.instance.collection('lista_pacientes');
