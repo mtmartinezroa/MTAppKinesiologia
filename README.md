@@ -5,6 +5,7 @@ Proyecto para Memoria de título "Aplicación móvil para registrar y desplegar 
 Para optar la título de ingeniería Civil informática Universidad de Concepción, Chile
 
 App kinesiólogo(Android/iOS/Web)
+
 -Creación de cuentas de kinesiólogos
 
 -Ingreso de cuentas de kinesiólogos
