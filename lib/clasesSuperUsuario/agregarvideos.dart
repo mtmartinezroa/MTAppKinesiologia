@@ -20,10 +20,11 @@ class AgregarVideos extends StatefulWidget {
 
 class _HomeState extends State<AgregarVideos> {
   //PlatformFile? pickedFile;
+
+  PlatformFile? pickedFile2;
   Uint8List? pickedFile;
   String? nombreFile;
   UploadTask? uploadTask;
-
 
   Future elegirVideo() async { // funcion que elige el archivo que queremos subir a la bd
     final result = await FilePicker.platform.pickFiles();
@@ -31,23 +32,49 @@ class _HomeState extends State<AgregarVideos> {
     setState(() {
       pickedFile = result.files.first.bytes;
       nombreFile = result.files.first.name;
+
+
+      if (pickedFile == null) pickedFile2 = result.files.first;
+
+
     });
+
+
+
   }
 
   Future subirVideo() async {  // funcion que sube el archivo a la bd
-    if(pickedFile == null) return;
-    final path = 'archivos/videos/'+widget.idEjercicio+'/${nombreFile}';
-    final ref = FirebaseStorage.instance.ref().child(path);
+    if(pickedFile == null&&pickedFile2 == null) return;
 
-    setState(() {
-      uploadTask = ref.putData(pickedFile!);
-    });
-    final snapshot = await uploadTask!.whenComplete(() {});
-    final linkVideo = await snapshot.ref.getDownloadURL();
+    if(pickedFile != null) {
+      final path = 'archivos/videos/' + widget.idEjercicio + '/${nombreFile}';
+      final ref = FirebaseStorage.instance.ref().child(path);
 
-    setState(() {
-      uploadTask = null;
-    });
+      setState(() {
+        uploadTask = ref.putData(pickedFile!);
+      });
+      final snapshot = await uploadTask!.whenComplete(() {});
+      final linkVideo = await snapshot.ref.getDownloadURL();
+
+      setState(() {
+        uploadTask = null;
+      });
+    } else {
+      final path = 'archivos/'+widget.idEjercicio+'/${pickedFile2!.name}';
+      final file = File(pickedFile2!.path!);
+      final ref = FirebaseStorage.instance.ref().child(path);
+
+      setState(() {
+        uploadTask = ref.putFile(file);
+      });
+      final snapshot = await uploadTask!.whenComplete(() {});
+      final linkVideo = await snapshot.ref.getDownloadURL();
+
+      setState(() {
+        uploadTask = null;
+      });
+    }
+
 
   }
 
@@ -111,7 +138,7 @@ class _HomeState extends State<AgregarVideos> {
             ),
             SizedBox(height: 5),
 
-            if (pickedFile == null)
+            if (pickedFile == null&&pickedFile2==null)
               Text(
                   'No se ha seleccionado un archivo aun'
               ),
@@ -119,6 +146,11 @@ class _HomeState extends State<AgregarVideos> {
               Text(
                   nombreFile!,
               ),
+            if (pickedFile2 != null)
+              Text(
+                  pickedFile2!.name,
+              ),
+
             SizedBox(height: 8),
             ElevatedButton.icon( //boton para subir video
               onPressed: () {
@@ -132,6 +164,7 @@ class _HomeState extends State<AgregarVideos> {
               label: const Text('Subir Video a BD'),
             ),
             barraProgreso(),
+
           ],
         ),
       ),

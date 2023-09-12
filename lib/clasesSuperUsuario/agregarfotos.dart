@@ -20,6 +20,7 @@ class AgregarFotos extends StatefulWidget {
 
 class _HomeState extends State<AgregarFotos> {
   //PlatformFile? pickedFile;
+  PlatformFile? pickedFile2;
   Uint8List? pickedFile;
   String? nombreFile;
   UploadTask? uploadTask;
@@ -31,26 +32,47 @@ class _HomeState extends State<AgregarFotos> {
       //pickedFile = result.files.first;
       pickedFile = result.files.first.bytes;
       nombreFile = result.files.first.name;
+
+      if (pickedFile == null) pickedFile2 = result.files.first;
+
+
     });
   }
 
   Future subirFoto() async {  // funcion que sube el archivo a la bd
-    if(pickedFile == null) return;
+    if(pickedFile == null&&pickedFile2 == null) return;
     //final path = 'archivos/fotos/'+widget.idEjercicio+'/${pickedFile!.name}';
     //final file = File(pickedFile!.path!);
 
-    final path = 'archivos/fotos/'+widget.idEjercicio+'/${nombreFile}';
-    final ref = FirebaseStorage.instance.ref().child(path);
+    if(pickedFile != null) {
+      final path = 'archivos/fotos/' + widget.idEjercicio + '/${nombreFile}';
+      final ref = FirebaseStorage.instance.ref().child(path);
 
-    setState(() {
-      uploadTask = ref.putData(pickedFile!);
-    });
-    final snapshot = await uploadTask!.whenComplete(() {});
-    final linkVideo = await snapshot.ref.getDownloadURL();
+      setState(() {
+        uploadTask = ref.putData(pickedFile!);
+      });
+      final snapshot = await uploadTask!.whenComplete(() {});
+      final linkVideo = await snapshot.ref.getDownloadURL();
 
-    setState(() {
-      uploadTask = null;
-    });
+      setState(() {
+        uploadTask = null;
+      });
+    }else {
+      final path = 'archivos/'+widget.idEjercicio+'/${pickedFile2!.name}';
+      final file = File(pickedFile2!.path!);
+      final ref = FirebaseStorage.instance.ref().child(path);
+
+      setState(() {
+        uploadTask = ref.putFile(file);
+      });
+      final snapshot = await uploadTask!.whenComplete(() {});
+      final linkVideo = await snapshot.ref.getDownloadURL();
+
+      setState(() {
+        uploadTask = null;
+      });
+    }
+
 
   }
 
@@ -114,13 +136,17 @@ class _HomeState extends State<AgregarFotos> {
             ),
             SizedBox(height: 5),
 
-            if (pickedFile == null)
+            if (pickedFile == null&&pickedFile2==null)
               Text(
                   'No se ha seleccionado un archivo aun'
               ),
             if (pickedFile != null)
               Text(
                   nombreFile!,
+              ),
+            if (pickedFile2 != null)
+              Text(
+                pickedFile2!.name,
               ),
             SizedBox(height: 8),
             ElevatedButton.icon( //boton para subir video
