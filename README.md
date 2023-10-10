@@ -4,11 +4,17 @@ Proyecto para Memoria de título "Aplicación móvil para registrar y desplegar 
 Para optar la título de ingeniería Civil informática Universidad de Concepción, Chile
 
 App kinesiólogo(Android/iOS/Web)
+
 Hosting de app en linea con firebase : https://mtapp-a45cd.web.app/ 
 
-Herramientas utilizadas: Android Studio / Xcode 
+Herramientas utilizadas:
+
+IDE: Android Studio / Xcode 
+
 Lenguajes: Dart
+
 Framework: Flutter 
+
 Base de datos: Firebase 
 
 Posee las siguientes funcionalidades:  
