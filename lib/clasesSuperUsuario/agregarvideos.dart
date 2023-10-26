@@ -60,7 +60,7 @@ class _HomeState extends State<AgregarVideos> {
         uploadTask = null;
       });
     } else {
-      final path = 'archivos/'+widget.idEjercicio+'/${pickedFile2!.name}';
+      final path = 'archivos/videos/'+widget.idEjercicio+'/${pickedFile2!.name}';
       final file = File(pickedFile2!.path!);
       final ref = FirebaseStorage.instance.ref().child(path);
 
