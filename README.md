@@ -43,9 +43,9 @@ Posee las siguientes funcionalidades:
 
 -Lista de videos(de un ejercicio en especifico)
 
--Lista de imagenenes(de un ejercicio en especifico)
+-Lista de imagenes(de un ejercicio en especifico)
 
 -Visualización de videos y/o imágenes
 
--Visualizacion cronometro para realizar ejercicio
+-Visualización de cronometro para realizar ejercicio
 
