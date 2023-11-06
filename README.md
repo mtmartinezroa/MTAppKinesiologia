@@ -1,8 +1,5 @@
 # [Flutter] mt_app_kinesiologia
 
-Proyecto para Memoria de título "Aplicación móvil para registrar y desplegar programa personalizado de kinesioterapia"
-Para optar la título de ingeniería Civil informática Universidad de Concepción, Chile
-
 App kinesiólogo(Android/iOS/Web)
 
 Hosting de app en linea con firebase : https://mtapp-a45cd.web.app/ 
